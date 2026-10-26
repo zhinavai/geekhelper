@@ -2,7 +2,6 @@ package com.geekhelper.tv
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.FileProvider
@@ -25,11 +24,11 @@ class MainActivity : Activity() {
         tvStatus = findViewById(R.id.tvStatus)
         tvServerUrl = findViewById(R.id.tvServerUrl)
 
-        // 1. 根據環境動態設定名稱
+        // 1. 根據系統環境動態設定名稱（支援中英文自動切換）
         val appName = if (LocaleHelper.isChineseEnvironment(this)) "极客助手 (TV)" else "GeekHelper TV"
         tvAppTitle.text = appName
 
-        // 2. 啟動內嵌 Web 伺服器 (埠號 8080)
+        // 2. 啟動內嵌 Web 伺服器 (監聽 8080 埠號)
         try {
             webServer = WebServer(8080, cacheDir) { apkFile ->
                 // 當網頁端上傳完成 APK 時，回調此處自動調起安裝
