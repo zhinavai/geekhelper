@@ -1,43 +1,40 @@
-name: Build Release APK
+android {
+    namespace = "com.geekhelper.tv"
+    compileSdk = 34
 
-on:
-  push:
-    tags:
-      - 'v*'
+    // 🌟 新增簽署配置
+    signingConfigs {
+        create("release") {
+            // 從系統環境變數讀取密鑰（GitHub Actions 會自動傳入）
+            val keystoreBase64 = System.getenv("SIGNING_KEY_STORE_BASE64")
+            if (!keystoreBase64.isNullOrEmpty()) {
+                val jksFile = File.createTempFile("temp_store", ".jks")
+                jksFile.writeBytes(java.util.Base64.getDecoder().decode(keystoreBase64))
+                storeFile = jksFile
+            }
+            storePassword = System.getenv("KEY_STORE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
+        }
+    }
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+    defaultConfig {
+        applicationId = "com.geekhelper.tv"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-
-    - name: set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
-    # 🌟 修正點 1：升級至 v4，並加入 accept-licenses 參數以避免 sdkmanager 授權卡住報錯
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        accept-licenses: true
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
-    - name: Build Release APK
-      env:
-        SIGNING_KEY_STORE_BASE64: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
-        KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-      run: ./gradlew assembleRelease
-
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: GeekHelper-TV-Release
-        path: app/build/outputs/apk/release/app-release.apk
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            // 🌟 綁定 release 簽署
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+}
