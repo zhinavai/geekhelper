@@ -3,7 +3,7 @@ name: Build Release APK
 on:
   push:
     tags:
-      - 'v*' # 當你推送 tag（例如 git tag v1.0.0）時自動觸發 Release 打包
+      - 'v*'
 
 jobs:
   build:
@@ -19,8 +19,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    # 🌟 修正點 1：升級至 v4，並加入 accept-licenses 參數以避免 sdkmanager 授權卡住報錯
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
+      with:
+        accept-licenses: true
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
