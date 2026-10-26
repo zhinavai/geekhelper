@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch: # 🌟 加上這行，你就可以直接在 GitHub 網頁上按「Run workflow」手動觸發！
 
 jobs:
   build:
@@ -19,7 +20,7 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    # 🌟 修正點 1：升級至 v4，並加入 accept-licenses 參數以避免 sdkmanager 授權卡住報錯
+    # 🌟 修正為 v4 並加上 accept-licenses 解決 sdkmanager 報錯
     - name: Setup Android SDK
       uses: android-actions/setup-android@v4
       with:
