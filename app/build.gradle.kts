@@ -5,16 +5,18 @@ android {
     // 🌟 新增簽署配置
     signingConfigs {
         create("release") {
-            // 從系統環境變數讀取密鑰（GitHub Actions 會自動傳入）
             val keystoreBase64 = System.getenv("SIGNING_KEY_STORE_BASE64")
             if (!keystoreBase64.isNullOrEmpty()) {
                 val jksFile = File.createTempFile("temp_store", ".jks")
                 jksFile.writeBytes(java.util.Base64.getDecoder().decode(keystoreBase64))
                 storeFile = jksFile
+                storePassword = System.getenv("KEY_STORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            } else {
+                // 本地若沒有設定環境變數，可以暫時指向 debug 簽署或印出提示，避免本地 Build 報錯
+                // storeFile = file("debug.keystore") 
             }
-            storePassword = System.getenv("KEY_STORE_PASSWORD")
-            keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("KEY_PASSWORD")
         }
     }
 
