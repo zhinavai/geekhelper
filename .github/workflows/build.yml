@@ -21,7 +21,7 @@ jobs:
 
     # 🌟 修正點 1：升級至 v4，並加入 accept-licenses 參數以避免 sdkmanager 授權卡住報錯
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
       with:
         accept-licenses: true
 
