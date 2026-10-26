@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">极客助手</string>
+    <string name="server_starting">正在初始化传输服务...</string>
+    <string name="server_ready_title">🚀 极客助手无线闪传已就绪</string>
+    <string name="server_instruction">请让手机或电脑连接同一 Wi-Fi 网络，并在浏览器中输入以下网址：</string>
+    <string name="file_received">收到文件: %1$s，准备安装</string>
+    <string name="permission_install_required">请允许安装来自未知来源的应用</string>
+</resources>
