@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">GeekHelper</string>
-    <string name="server_starting">Initializing transfer server...</string>
-    <string name="server_ready_title">🚀 GeekHelper Transfer Ready</string>
-    <string name="server_instruction">Connect Phone or PC to the same Wi-Fi network and open the URL below in any browser:</string>
-    <string name="file_received">File received: %1$s</string>
-    <string name="permission_install_required">Please allow installation permission for unknown sources</string>
-</resources>
