@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GeekHelper</string>
+    <string name="upload_hint">Upload APK via this address</string>
+    <string name="scan_hint">Scan QR code or open address on phone/PC</string>
+    <string name="received_title">Received Packages</string>
+    <string name="qr_desc">Upload address QR code</string>
+    <string name="no_network">No network connection</string>
+    <string name="need_install_permission">Please allow installing unknown apps</string>
+    <string name="install_failed">Failed to launch installer. Check file or permissions.</string>
+    <string name="service_running">Upload service is active</string>
+    <string name="cleared_success">Cleared all received packages</string>
+</resources>

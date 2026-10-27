@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">極客助手</string>
+    <string name="upload_hint">通過去下地址上載 APK</string>
+    <string name="scan_hint">手機/電腦掃碼，或直接打開上方地址</string>
+    <string name="received_title">已接收的安裝包</string>
+    <string name="qr_desc">上載地址二維碼</string>
+    <string name="no_network">未連接網絡</string>
+    <string name="need_install_permission">請允許本應用安裝未知應用</string>
+    <string name="install_failed">無法啟動安裝器，請檢查文件或權限</string>
+    <string name="service_running">上載服務運行中</string>
+    <string name="cleared_success">已成功清空所有接收包</string>
+</resources>
