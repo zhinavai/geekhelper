@@ -1,0 +1,43 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: GeekHelper-debug
+          path: app/build/outputs/apk/debug/*.apk
+```[cite: 1]
+
+---
+
+### 💡 關於 JKS 簽名（如果你想在 GitHub 自動打包 Release 簽名版）
+既然你已經有了 `.jks` 簽名檔，如果希望 GitHub Actions 在編譯時自動幫你用這個 `.jks` 簽名，通常需要做兩步：
+1. **將 JKS 轉為 Base64**：把你的 `.jks` 檔案轉成字串，並放到 GitHub 專案的 **Settings > Secrets and variables > Actions** 中（例如命名為 `KEYSTORE_BASE64`）。
+2. **在 workflow 中還原並配置 gradle 簽名屬性**。
+
+如果你目前只是想先用最簡單的 Debug 版跑通 GitHub Actions，直接把上面這段 `build.yml` 提交上去就可以了！
+
+要我幫你寫一個**支援 JKS 簽名的完整 Release workflow** 嗎？
